@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="open_academy_main_menu"
+        name="Open Academy"
+        sequence="1"
+        action ="open_academy_dashboard_open"
+        web_icon= "open_academy,static/description/icon.png"
+    />
+
+</odoo>

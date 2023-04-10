@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Vista Tree-->
+   <record model="ir.ui.view" id="open_academy_cursos_tree">
+      <field name="name">open_academy.cursos.tree</field>
+      <field name="model">openacademy.cursos</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="titulo"/>
+          <field name="responsable_id"/>
+        </tree>
+      </field>
+    </record>
+
+     <!--Vista Form-->
+   <record model="ir.ui.view" id="open_academy_cursos_form">
+      <field name="name">open_academy.cursos.form</field>
+      <field name="model">openacademy.cursos</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+          <label for="titulo" class="on_edit_only"/>
+          <h1>
+            <field name="titulo"/>
+          </h1>
+          <notebook>
+            <page name="general" string="Información general">
+                <group>
+                    <field name="descripcion" widget="html"/>
+                    <field name="responsable_id"/>
+                    <field name="icono" widget="image" class="oe_avatar"/>
+                    <field name="documento" widget="many2many_tags"/>
+                </group>
+            </page>
+            <page name="sesiones" string="Sesiones">
+              <field mode="tree" name="sesiones_ids">
+                    <tree>
+                    <field name="nombre"/>
+                    <field name="fecha_inicio"/>
+                    <field name="duracion"/>
+                    <field name="numero_asientos"/>
+                    </tree>      
+              </field>
+            </page>
+          </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!--Vista Search-->
+    <record id="open_academy_cursos_search" model="ir.ui.view">
+        <field name="name">open_academy.cursos.search</field>
+        <field name="model">openacademy.cursos</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="titulo"/>
+                <field name="descripcion"/>
+                <field name="responsable_id"/>  
+                <filter name="mis_cursos" string="Mis Cursos" domain="[('responsable_id','=', uid)]"/>
+                <group string="Group By">
+                  <filter name="group_by_responsables" string="Responsables" context="{'group_by': 'responsable_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--Acción de ventana-->
+    <record model="ir.actions.act_window" id="action_open_academy_cursos">
+    <field name="name">Cursos</field>
+    <field name="res_model">openacademy.cursos</field>
+    <field name="context">{"search_default_mis_cursos":1}</field>
+    <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Elementos de menú-->
+    <menuitem name="Cursos" id="open_academy_menu_cursos" parent="open_academy_main_menu"
+    action="action_open_academy_cursos" />
+
+</odoo>
+
+
+

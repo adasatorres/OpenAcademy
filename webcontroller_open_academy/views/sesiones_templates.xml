@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="sesiones_template_confirm" name="confirmacion sesion">
+        <t t-call="website.layout">
+            <div class="container">
+                 <div class="row">
+                        <div class="col-12">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a t-attf-href="/cursos">Cursos</a></li>
+                                    <li class="breadcrumb-item"><a t-attf-href="/cursos/{{ curso_id }}/sesiones">Sesiones del curso: <t t-esc="titulo_curso"/></a></li>
+                                    <li t-if="detalles" class="breadcrumb-item"><a t-attf-href="/curso/{{ curso_id }}/sesiones/{{ sesion_id }}/complete">Detalles</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Confirmación de asistencia</li>
+                                </ol>
+                            </nav>
+                        </div>
+                </div>
+                
+                <div class="alert alert-success">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <p><b>Registrado como asistente en la sesion!!</b></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <a role="button" t-attf-href="http://10.1.0.51/my/sesiones" class="btn btn-secondary">Ver mis sesiones</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>     
+    </template>
+
+    <template id="sesiones_template_delete" name="delete sesion">
+        <t t-call="website.layout">
+            <div class="container">
+                 <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a t-attf-href="/cursos">Cursos</a></li>
+                                    <li class="breadcrumb-item"><a t-attf-href="/cursos/{{ curso_id }}/sesiones">Sesiones del curso: <t t-esc="titulo_curso"/></a></li>
+                                    <li t-if="detalles" class="breadcrumb-item"><a t-attf-href="/curso/{{ curso_id }}/sesiones/{{ sesion_id }}/complete">Detalles</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Asistencia eliminada</li>
+                                </ol>
+                            </nav>
+                
+                <div class="alert alert-success">
+                    <div class="row">
+                        <div class="col-12">
+                            <p><b>Haz sido eliminado como asistente en esta sesión.</b></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <a role="button" t-attf-href="http://10.1.0.51/my/sesiones" class="btn btn-secondary">Ver mis sesiones</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>     
+    </template>
+
+
+
+
+    <template id="sesiones_template" name="Sesiones">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                
+                    <div class="row">
+                            <div class="col-12">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/cursos">Cursos</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Sesiones del curso: <t t-esc="titulo_curso"/></li>
+                                    </ol>
+                                </nav>
+                            </div>
+                    </div>
+                
+                
+                    <div class="row">
+                        <div class="col-12">
+
+                            <center>
+                                <h3> Sesiones disponibles de <t t-esc="titulo_curso"/></h3>
+                            </center>
+                            <br />
+                        
+                            <table class="table-striped table">
+                                <thead style="font-size: 23px;">
+                                    <tr>
+                                        <h6>
+                                            <b>
+                                                <th>Nombre</th>
+                                                <th>Fecha Inicio</th>
+                                                <th>Duracion</th>
+                                                <th>Asientos</th>
+                                                <th>Asistir</th>
+                                            </b>
+                                        </h6>
+                                            
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="records" t-as="sesion">
+                                        
+                                        
+                                        <tr t-if="sesion.activa">
+                                            <td><a t-attf-href="/curso/{{ curso_id }}/sesiones/{{ sesion.id }}/complete"><span t-esc="sesion.nombre"/></a></td>
+                                            <td><span t-esc="sesion.fecha_inicio" /></td>
+                                            <td><span t-field="sesion.duracion" t-options="{'widget': 'float_time'}" /></td>
+                                            <td><span t-esc="sesion.numero_asientos"/></td>
+                                            <td>
+                                                <a t-if="user.id not in sesion.asistentes_ids.ids" role="button" t-attf-href="http://10.1.0.51/curso/{{ curso_id }}/sesion/{{ sesion.id }}/user/{{ user.id }}/add" name="Add" class="btn btn-secondary">Asistir</a>
+                                                
+                                                <a t-else="" role="button" t-attf-href="http://10.1.0.51/curso/{{ curso_id }}/sesion/{{ sesion.id }}/user/{{ user.id }}/delete" class="btn btn-secondary">Eliminar asistencia</a>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="d-flex align-items-center">
+                               <t t-call="website.pager"/>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="sesiones_completas" name="sesiones completa">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    
+                     <div class="row">
+                        <div class="col-12">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/cursos">Cursos</a></li>
+                                    <li class="breadcrumb-item"><a  t-attf-href="/cursos/{{ curso.id }}/sesiones">Sesiones del curso: <t t-esc="curso.titulo"/></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Detalles</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="row  p-3 mb-2 bg-secondary text-white rounded">
+                        <div class="col-12">
+                            
+                            <div class="row">
+                                <div class="text-left col-10">
+                                    <h1 class="text-truncate">
+                                        <p t-field="sesion.nombre"/>
+                                    </h1>
+                                </div>
+
+                                <div class="col-2">
+                                    
+                                        <a t-if="user.id not in sesion.asistentes_ids.ids" role="button" t-attf-href="http://10.1.0.51/curso/{{ curso.id }}/sesion/{{ sesion.id }}/user/{{ user.id }}/add/detalles" name="Add" class="btn btn-primary">Asistir</a>
+                                        
+                                        <a t-else="" role="button" t-attf-href="http://10.1.0.51/curso/{{ curso.id }}/sesion/{{ sesion.id }}/user/{{ user.id }}/delete/detalles" class="btn btn-primary">Eliminar asistencia</a>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                
+                                <div class="col-6">
+                                    <h4>Instructor: <span t-if="sesion.instructor_id" t-field="sesion.instructor_id"/> </h4>
+                                    
+
+                                </div>
+                                <div class="col-6">
+                                    <h4>Curso: <span t-field="sesion.curso_id.titulo"/></h4>  
+                                         
+                                </div>
+                                
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-12">
+
+                                    
+                                    <div class="accordion" id="accordionExample">
+                                        <div class="card">
+                                            <div class="card-header" id="headingOne">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                <h5>Información sobre la sesión</h5>
+                                                </button>
+                                            </h5>
+                                            </div>
+
+                                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <p><b>Fecha inicio:</b> <t t-esc="sesion.fecha_inicio"/></p>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <p><b>Fecha fin:</b> <t t-esc="sesion.fecha_fin"/></p>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <p><b>Duración:</b> <span t-field="sesion.duracion" t-options="{'widget': 'float_time'}"/></p>
+                                                        </div>
+                                                        <hr/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <p><b>Asientos Totales:</b> <t t-esc="sesion.numero_asientos"/></p>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <p><b>Asientos Ocupados:</b> <t t-esc="sesion.num_asientos_ocupado"/> </p>
+                                                        </div>
+                                                    </div>
+
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header" id="headingTwo">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    <h5>Descripción de la sesión</h5>
+                                                </button>
+                                            </h5>
+                                            </div>
+                                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <span t-if="sesion.descripcion_sesion" t-field="sesion.descripcion_sesion" t-options="{'widget' : 'html'}"/>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

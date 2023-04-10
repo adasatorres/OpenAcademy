@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vista extendida de res.partner-->
+    <record id="open_company_res_partner_mod" model="ir.ui.view">
+        <field name="name">open_academy.res_partner_mod.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="instructor" widget="toggle"/>
+                 <field name="sesiones_ids" widget="many2many_tags"/>    
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

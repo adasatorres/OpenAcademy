@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="open_academy_cursos_form_galeria" model="ir.ui.view">
+        <field name="name">openacademy.cursos.form.galeria</field>
+        <field name="model">openacademy.cursos</field>
+        <field name="inherit_id" ref="open_academy.open_academy_cursos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='documento']" position="after">
+                <field name="galeria_ids" widget="many2many_tags" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

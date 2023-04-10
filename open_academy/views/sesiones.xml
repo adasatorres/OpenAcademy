@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    
+    <!--Vista Tree-->
+   <record model="ir.ui.view" id="open_academy_sesiones_tree">
+      <field name="name">open_academy.sesiones.tree</field>
+      <field name="model">openacademy.sesiones</field>
+      <field name="arch" type="xml">
+        <tree decoration-info="duracion &lt; 5 " decoration-danger="duracion &gt; 15">
+            <field name="nombre"/>
+            <field name="fecha_inicio"/>
+            <field name="fecha_fin"/>
+            <field name="duracion" widget="float_time"/>
+            <field name="numero_asientos"/>
+            <field name="num_asientos_ocupado"/>
+            <field name="num_asientos_ocupado_porcentaje" widget="progressbar"/>
+            <field name="instructor_id"/>
+            <field name="curso_id"/>
+        </tree>
+      </field>
+    </record>
+
+
+     <!--Vista Form-->
+   <record model="ir.ui.view" id="open_academy_sesiones_form">
+      <field name="name">open_academy.sesiones.form</field>
+      <field name="model">openacademy.sesiones</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+          <label for="nombre" class="on_edit_only"/>
+          <h1>
+            <field name="nombre"/>
+          </h1>
+          <notebook>
+            <page name="general" string="Información general">
+                <group>
+                    
+                    <group>
+                        <field name="fecha_inicio" widget="date"/>
+                        <field name="fecha_fin" widget="date"/>
+                        <field name="duracion" widget="float_time"/>
+                        <field name="numero_asientos"/>
+                        <field name="num_asientos_ocupado"/>
+                        <field name="descripcion_sesion" widget="html"/>
+                    </group>
+
+                    <group>
+                        <field name="num_asientos_ocupado_porcentaje" widget="progressbar"/>
+                        <field name="instructor_id"/>
+                        <field name="curso_id"/>
+                        <field name="asistentes_ids"  widget="many2many_tags" />
+                        <field name="activa" widget="toggle"/>
+                    </group>
+                </group>
+            </page>
+          </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+     <!--Vista Search-->
+   <record id="open_academy_sesiones_search" model="ir.ui.view">
+        <field name="name">open_academy.sesiones.search</field>
+        <field name="model">openacademy.sesiones</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="nombre"/>
+                <field name="instructor_id"/>
+                <field name="curso_id"/>        
+            </search>
+        </field>
+    </record>
+    
+
+
+    <!--Vista Calendario-->
+    <record id="open_academy_sesiones_calendar" model="ir.ui.view">
+      <field name="name">open_academy.sesiones.calendar</field>
+      <field name="model">openacademy.sesiones</field>
+      <field name="arch" type="xml">
+        <calendar string="Sesiones" date_start="fecha_inicio" color="instructor_id">
+          <field name="nombre" />
+        </calendar>
+      </field>
+    </record>
+
+
+    <!--Vista gantt-->
+    <record id="open_academy_sesiones_gantt" model="ir.ui.view">
+      <field name="name">open_academy.sesiones.gantt</field>
+      <field name="model">openacademy.sesiones</field>
+      <field name="arch" type="xml">
+        <gantt string="Sesiones" date_start="fecha_inicio"  progress="duracion" default_group_by="instructor_id">
+        </gantt>
+      </field>
+    </record>
+
+    <!--Vista Graph-->
+
+    <record id="open_academy_sesiones_graph" model="ir.ui.view">
+      <field name="name">open_academy.sesiones.graph</field>
+      <field name="model">openacademy.sesiones</field>
+      <field name="arch" type="xml">
+        <graph string="Sesiones" type="bar" stacked="True">
+          <field name="curso_id"/>
+          <field name="num_asistentes" type="measure"/>        
+        </graph>
+      </field>
+    </record>
+
+
+    <!--Vista Kanban-->
+    <record id="open_academy_sesiones_kanban" model="ir.ui.view">
+      <field name="name">open_academy.sesiones.kanban</field>
+      <field name="model">openacademy.sesiones</field>
+      <field name="arch" type="xml">
+        <kanban default_group_by="curso_id" default_order="nombre desc">
+          <templates>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_global_click">
+                <div class="contact-paddings">
+                  <div class="oe_kanban_details d-flex flex-column">
+                    <h3><field name="nombre"/></h3>
+                    <ul>
+                      <li t-if="record.fecha_inicio.raw_value"><strong>Fecha de inicio: </strong><field name="fecha_inicio"/> </li>
+                      <li t-if="record.curso_id.raw_value"><strong>Curso: </strong><field name="curso_id"/> </li>
+                      <li t-if="record.instructor_id.raw_value"><strong>Intructor:  </strong><field name="instructor_id"/> </li>
+                      <li t-if="record.num_asientos_ocupado_porcentaje.raw_value"><strong>Asientos ocupados: </strong><field name="num_asientos_ocupado_porcentaje" widget="progressbar"/> </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+
+
+
+     <!--Acción de ventana-->
+    <record model="ir.actions.act_window" id="action_open_academy_sesiones">
+    <field name="name">Sesiones</field>
+    <field name="res_model">openacademy.sesiones</field>
+    <field name="view_mode">tree,form,calendar,graph,kanban</field>
+    </record>
+
+
+    <!--Elementos de menú-->
+    <menuitem name="Sesiones" id="open_academy_menu_sesiones" parent="open_academy_main_menu"
+    action="action_open_academy_sesiones"/>
+
+  
+
+    <!--Acción de informe-->
+    <record id="open_academy_report_sesiones" model="ir.actions.report">
+      <field name="name">Reporte</field>
+      <field name="model">openacademy.sesiones</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">open_academy.report_template_session</field>
+      <field name="report_file">open_academy.report_template_session</field>
+      <field name="binding_model_id" ref="open_academy.model_openacademy_sesiones"/>
+      <field name="binding_type">report</field>
+    </record>
+
+      <!--Plantilla del informe-->
+    
+    <template id="report_template_session">
+        <t t-call="web.html_container">
+          <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+              <div class="page">
+                <h2 t-field="o.nombre"></h2>
+                <p t-field="o.fecha_inicio"></p>
+                <p t-field="o.fecha_fin"></p>
+                <h4>Assitentes</h4>
+                <ul t-foreach="o.asistentes_ids" t-as="asis">
+                  <li><p t-field="asis.name"></p></li>
+                </ul>
+              </div>
+            </t>
+          </t>
+        </t>  
+    </template>
+
+
+</odoo>

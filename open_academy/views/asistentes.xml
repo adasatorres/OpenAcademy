@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="open_academy_asistentes_form" model="ir.ui.view">
+        <field name="name">open_academy.asistentes.form</field>
+        <field name="model">openacademy.asistentes</field>
+        <field name="arch" type="xml">
+            <form string="Asistentes" context="{'sesiones_ids' : self._context}">
+                <sheet>
+                <group name="" string="">
+                    <field name="sesiones_ids" widget="many2many_tags"/>
+                    <field name="asistentes_ids"  widget="many2many_tags" />
+                </group>
+                <footer>
+                    <button name="ok" type="object" string="OK" class="oe_highlight" />
+                    or
+                    <button name="cancel" type="object" string="Cancel"/>
+                </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="open_academy_launch_the_wizard_asistentes" model="ir.actions.act_window">
+        <field name="name">Launch the Wizard Asistentes</field>
+        <field name="res_model">openacademy.asistentes</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="open_academy.model_openacademy_sesiones"/>
+    </record>
+
+</odoo>
