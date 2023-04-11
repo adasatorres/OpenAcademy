@@ -169,9 +169,9 @@
 
                                 <div class="col-2">
                                     
-                                        <a t-if="user.id not in sesion.asistentes_ids.ids" role="button" t-attf-href="http://10.1.0.51/curso/{{ curso.id }}/sesion/{{ sesion.id }}/user/{{ user.id }}/add/detalles" name="Add" class="btn btn-primary">Asistir</a>
+                                        <a t-if="user.id not in sesion.asistentes_ids.ids" role="button" t-attf-href="/curso/{{ curso.id }}/sesion/{{ sesion.id }}/user/{{ user.id }}/add/detalles" name="Add" class="btn btn-primary">Asistir</a>
                                         
-                                        <a t-else="" role="button" t-attf-href="http://10.1.0.51/curso/{{ curso.id }}/sesion/{{ sesion.id }}/user/{{ user.id }}/delete/detalles" class="btn btn-primary">Eliminar asistencia</a>
+                                        <a t-else="" role="button" t-attf-href="/curso/{{ curso.id }}/sesion/{{ sesion.id }}/user/{{ user.id }}/delete/detalles" class="btn btn-primary">Eliminar asistencia</a>
                                 </div>
 
 

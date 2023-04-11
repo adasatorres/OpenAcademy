@@ -75,7 +75,7 @@
                             </h5>
                         </div>
                         <div class="col-2">
-                            <a  role="button" t-attf-href="http://10.1.0.51/curso/{{ curso_id }}/sesion/{{ sesion.id }}/user/{{ user.id }}/delete" class="btn btn-secondary">Eliminar asistencia</a>
+                            <a  role="button" t-attf-href="/curso/{{ curso_id }}/sesion/{{ sesion.id }}/user/{{ user.id }}/delete" class="btn btn-secondary">Eliminar asistencia</a>
                         </div>
                     </div>
                 </t>

@@ -152,7 +152,7 @@
                                             <td>
                                             <span t-field="curso.icono" t-options="{'widget': 'image', 'qweb_img_responsive': False, 'class': 'rounded o_image_64_max'}" />
                                             </td>
-                                            <td><p><a t-attf-href="http://10.1.0.51/curso/{{ curso.id }}/complete"><t t-esc="curso.titulo"/></a></p></td>
+                                            <td><p><a t-attf-href="/curso/{{ curso.id }}/complete"><t t-esc="curso.titulo"/></a></p></td>
                                             <td><span t-esc="curso.responsable_id.name"/></td>
                                             <td>
                                                 <div class="dropdown">
@@ -162,7 +162,7 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <t t-foreach="curso.documento" t-as="doc">
-                                                        <a class="dropdown-item" t-attf-href="http://10.1.0.51/documentos/{{ doc.id }}/download"><t t-esc="doc.name"/></a>
+                                                        <a class="dropdown-item" t-attf-href="/documentos/{{ doc.id }}/download"><t t-esc="doc.name"/></a>
                                                     </t>
                                                 </div>
                                                 </div>
@@ -170,7 +170,7 @@
                                             <td t-if="curso.sesiones_ids">
                                                 <span>
                                                     <p>
-                                                        <a t-attf-href="http://10.1.0.51/cursos/{{ curso.id }}/sesiones">Ver sesiones disponibles</a>
+                                                        <a t-attf-href="/cursos/{{ curso.id }}/sesiones">Ver sesiones disponibles</a>
                                                     </p>
                                                 </span>
                                             </td>
@@ -202,9 +202,9 @@
 
 
     <!--Plantilla  información completa-->
-    <template id="curso_completo" name="curso completo">
+    <template id="curso_completo" name="curso completo" customize_show="True">
         <t t-call="website.layout">
-            <div class="oe_structure">
+            <div class="eo_structure">
                 <div class="container">
                       <div class="row">
                         <div class="col-12">
@@ -216,8 +216,7 @@
                             </nav>
                         </div>
                     </div>
-                    
-                    
+                       
                     <div class="row  p-3 mb-2 bg-secondary text-white rounded">
                         <div class="col-12">
                             <div class="row">
@@ -238,10 +237,10 @@
                             </div>
                         
 
-                   
+                
 
-                    <div class="row">
-                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
                             <div class="accordion rounded" id="accordionInfoCurso">
                                 <div class="card">
                                     <div class="card-header" id="headingOne">
@@ -272,7 +271,7 @@
                                             <ul>
                                                 <t t-if="curso.documento" t-foreach="curso.documento" t-as="doc">
                                                     <li>
-                                                        <a t-attf-href="http://10.1.0.51/documentos/{{ doc.id }}/download"><t t-esc="doc.name"/></a>
+                                                        <a t-attf-href="/documentos/{{ doc.id }}/download"><t t-esc="doc.name"/></a>
                                                     </li>
                                                 </t>
                                             </ul>                                               
@@ -315,16 +314,47 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+        
 
+                            </div>
                         </div> 
                     </div>
+                     <div class="row">
+                        <div class="col-12">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <br/>
+                                    <h3>
+                                        Contactanos
+                                    </h3>
+                                    <hr/> 
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 oe_structure oe_empty">
+
+                                </div>
+
+                                <div class="col-6 oe_structure oe_empty">
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
                     </div>
-                    </div>
-                    </div>
+                    
+
+                </div>
+
+                </div>
+                </div>
                 </div>
             </div>
-        </t>      
+        </t> 
     </template>
 
 </odoo>
