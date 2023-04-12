@@ -15,7 +15,6 @@ class Lead(models.Model):
     @api.model
     def create(self, args):      
         lead = super(Lead, self).create(args)
-        _logger.info('####### {0}'.format(args))
         if 'active' in args.keys():
             lead.send_email()
         return lead

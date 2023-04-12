@@ -90,7 +90,7 @@
                             </center>
                             <br />
                         
-                            <table class="table-striped table">
+                            <table class="table-striped table table-responsive">
                                 <thead style="font-size: 23px;">
                                     <tr>
                                         <h6>

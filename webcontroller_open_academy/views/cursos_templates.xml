@@ -27,7 +27,7 @@
         <t t-set="cursos_con_sesiones_disponibles">Sesiones disponibles</t>
         <t t-set="todos_los_filtros" t-value="[
                 (todos_los_cursos, ''),
-                (cursos_con_sesiones_disponibles, 'sesiones_ids;!=;False' )
+                (cursos_con_sesiones_disponibles, 'sesiones_ids;!=;False')
             ]"/>
         <t t-set="filtros_current" t-value="[filtro for filtro in todos_los_filtros if filtro[1]==request.params.get('filterby', '')]"/>
         <div class="dropdown m-2 mt-2 ml-md-2">
@@ -131,7 +131,7 @@
                     <div class="row">
                         <div class="col-12">
                     
-                            <table class="table-striped table">
+                            <table class="table-striped table table-responsive">
                                 <thead style="font-size: 23px;">
                                     <tr>
                                         <h6>
@@ -202,7 +202,7 @@
 
 
     <!--Plantilla  información completa-->
-    <template id="curso_completo" name="curso completo" customize_show="True">
+    <template id="curso_completo" name="Curso">
         <t t-call="website.layout">
             <div class="eo_structure">
                 <div class="container">
@@ -323,20 +323,10 @@
                         <div class="col-12">
 
                             <div class="row">
-                                <div class="col-12">
-                                    <br/>
-                                    <h3>
-                                        Contactanos
-                                    </h3>
-                                    <hr/> 
+                                <div name="divform" class="col-6 oe_structure oe_empty">
+                                
+                                
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6 oe_structure oe_empty">
-
-                                </div>
-
                                 <div class="col-6 oe_structure oe_empty">
 
                                 </div>
@@ -347,14 +337,113 @@
                         </div>
                     </div>
                     
-
                 </div>
-
                 </div>
                 </div>
                 </div>
             </div>
         </t> 
+    </template>
+
+    <template id="webcontroller_open_academy_cursos_formulario_web" name="Formulario contacto" customize_show="True" inherit_id="webcontroller_open_academy.curso_completo">
+        <xpath expr="//div[@name='divform']" position="inside">
+            
+            <div class="row">
+                <div class="col-12">
+                    <br/>
+                    <h3>
+                        Contactanos
+                    </h3>
+                    <hr/> 
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <section class="s_website_form pt16 pb16 o_colored_level" data-vcss="001" data-snippet="s_website_form" data-name="Form">
+                        <div class="container">
+                        <form action="/website_form/" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*" data-success-mode="redirect" data-success-page="/contactus-thank-you" data-model_name="crm.lead">
+                            <div class="s_website_form_rows row s_col_no_bgcolor">
+                            <div class="form-group s_website_form_field col-12   s_website_form_field_hidden " data-type="many2one" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="o5gnoqdve7du">
+                                    <span class="s_website_form_label_content">Curso</span>
+                                </label>
+                                <div class="col-sm">
+                                    <select class="form-control s_website_form_input" name="curso_id" id="o5gnoqdve7du" style="">
+                                    <option t-attf-value="{{ curso.id }}" selected="selected">
+                                        <t t-esc="curso.name"/>
+                                    </option>
+                                    </select>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group s_website_form_field col-12 s_website_form_required" data-type="char" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="ogpqhziv0ssu">
+                                    <span class="s_website_form_label_content">Nombre</span>
+                                    <span class="s_website_form_mark"> *</span>
+                                </label>
+                                <div class="col-sm">
+                                    <input type="text" class="form-control s_website_form_input" name="contact_name" required="1" id="ogpqhziv0ssu"/>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group s_website_form_field col-12 s_website_form_required" data-type="email" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                <label class="col-form-label col-sm-auto s_website_form_label " style="width: 200px" for="osjgqaxrw1ke">
+                                    <span class="s_website_form_label_content">Correo Electrónico</span>
+                                    <span class="s_website_form_mark"> *</span>
+                                </label>
+                                <div class="col-sm">
+                                    <input type="email" class="form-control s_website_form_input" name="email_from" required="1" id="osjgqaxrw1ke"/>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group s_website_form_field col-12 s_website_form_model_required" data-type="char" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                <label class="col-form-label col-sm-auto s_website_form_label " style="width: 200px" for="o1d0g0ygwo19">
+                                    <span class="s_website_form_label_content">Asunto</span>
+                                    <span class="s_website_form_mark">   *</span>
+                                </label>
+                                <div class="col-sm">
+                                    <input type="text" class="form-control s_website_form_input" name="name" required="true" placeholder="" id="o1d0g0ygwo19"/>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group s_website_form_field col-12 s_website_form_required" data-type="text" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                <label class="col-form-label col-sm-auto s_website_form_label " style="width: 200px" for="op44cptx9vh">
+                                    <span class="s_website_form_label_content">Pregunta</span>
+                                    <span class="s_website_form_mark">     *</span>
+                                </label>
+                                <div class="col-sm">
+                                    <textarea class="form-control s_website_form_input" name="description" required="1" placeholder="" id="op44cptx9vh" rows="3"/>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group s_website_form_field col-12" data-type="boolean" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                <label class=" col-sm-auto s_website_form_label " style="width: 200px" for="oxvixur9ihi">
+                                    <span class="s_website_form_label_content">Correo de confirmación</span>
+                                </label>
+                                <div class="col-sm">
+                                    <input type="checkbox" value="Yes" class="s_website_form_input" name="active" id="oxvixur9ihi"/>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-12 s_website_form_submit" data-name="Submit Button">
+                                <div style="width: 200px;" class="s_website_form_label"/>
+                                <a href="#" role="button" class="btn btn-primary btn-lg s_website_form_send" data-original-title="" title="">Enviar</a>
+                                <span id="s_website_form_result"/>
+                            </div>
+                            </div>
+                        </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </xpath>
     </template>
 
 </odoo>
